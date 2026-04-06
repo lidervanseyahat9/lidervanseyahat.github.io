@@ -191,20 +191,60 @@
             font-weight: 600;
         }
 
+        /* ===== SEFER SONUÇLARI - SİYAH ARKAPLAN BEYAZ YAZI ===== */
         .sonuc {
             margin-top: 24px;
-            background: white;
+            background: #0a0a0a;
             border-radius: 24px;
             padding: 16px;
             display: none;
         }
 
+        .sonuc h3 {
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+
         .sefer-kart {
-            background: #fef9e6;
-            border-left: 5px solid #e67e22;
+            background: #000000;
+            border-left: 5px solid #00bcd4;
             border-radius: 20px;
             padding: 14px;
             margin-bottom: 18px;
+        }
+
+        /* Tüm yazılar beyaz */
+        .sefer-kart,
+        .sefer-kart div,
+        .sefer-kart div strong,
+        .sefer-kart .guzergah-ozet,
+        .sefer-kart .guzergah-ozet strong {
+            color: #ffffff !important;
+        }
+
+        /* Güzergah ozet kısmı - koyu gri arkaplan */
+        .guzergah-ozet {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        /* Rezervasyon butonu - TURKUAZ */
+        .sefer-kart a {
+            background: #00bcd4 !important;
+            color: #ffffff !important;
+            padding: 8px 18px;
+            border-radius: 40px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .sefer-kart a:hover {
+            background: #0097a7 !important;
+            color: #ffffff !important;
         }
 
         .page-title {
@@ -381,12 +421,23 @@
             outline: none;
             border-color: #e67e22;
         }
+        
         .guzergah-detay {
             background: white;
             border-radius: 20px;
             padding: 16px;
             margin-bottom: 20px;
         }
+        
+        .guzergah-baslik {
+            background: #0a2f44;
+            color: white;
+            padding: 10px 14px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+        
         .durak-satir {
             display: flex;
             justify-content: space-between;
@@ -394,6 +445,7 @@
             border-bottom: 1px solid #e2e8f0;
             font-size: 0.85rem;
         }
+        
         .submit-btn {
             background: #e67e22;
             color: white;
@@ -402,6 +454,46 @@
             border-radius: 40px;
             font-weight: bold;
             cursor: pointer;
+        }
+
+        .contact-form {
+            background: white;
+            border-radius: 24px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #0a2f44;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 40px;
+            font-size: 0.9rem;
+        }
+
+        .form-group textarea {
+            border-radius: 20px;
+        }
+
+        .success-message {
+            background: #27ae60;
+            color: white;
+            padding: 10px;
+            border-radius: 40px;
+            margin-top: 16px;
+            display: none;
+            text-align: center;
         }
     </style>
 </head>
@@ -475,7 +567,7 @@
 </div>
 
 <script>
-    // ======================= TÜM GÜZERGAHLAR (ORİJİNAL) =======================
+    // ======================= TÜM GÜZERGAHLAR =======================
     const hatlar = {
         "VAN - İSTANBUL": { kalkisSaati: "11:00", duraklar: ["Van","ADİLCEVAZ","Ahlat","Tatvan","Bitlis","BİTLİS 2","Güroymak","Muş","Solhan","SOLHAN 2","Bingöl","KOVANCILAR","ELAZIĞ","Malatya","Gürün","Kayseri","Kırşehir","Kırıkkale","Ankara","Bolu","Düzce","Adapazarı","İzmit","Gebze","Sultanbeyli","Alibeyköy","Esenler","İstanbul"], saatler: ["11:00","12:30","12:59","13:00","13:30","13:31","14:01","15:01","16:01","16:02","17:31","18:31","19:31","21:01","22:31","01:16","02:46","04:16","06:01","08:01","08:31","09:01","09:31","10:01","10:31","11:31","11:59","12:00"] },
         "VAN - ANKARA": { kalkisSaati: "15:00", duraklar: ["Van","Erciş","Patnos","Ağrı","Eleşkirt","Erzurum","Erzincan","Sivas","Kayseri","Kırşehir","Kırıkkale","Ankara"], saatler: ["15:01","16:31","17:31","18:31","19:01","22:01","00:01","04:01","06:31","09:01","10:31","11:01"] },
@@ -483,60 +575,35 @@
         "İSTANBUL - VAN": { kalkisSaati: "23:00", duraklar: ["İstanbul","Esenler","Alibeyköy","Sultanbeyli","Gebze","İzmit","Adapazarı","Düzce","Bolu","Ankara","Kırıkkale","Kırşehir","Kayseri","Gürün","Malatya","ELAZIĞ","KOVANCILAR","Bingöl","Solhan","SOLHAN 2","Muş","Güroymak","Bitlis","BİTLİS 2","Tatvan","Ahlat","ADİLCEVAZ","Van"], saatler: ["22:59","23:30","00:30","01:30","02:00","02:30","03:30","04:00","07:00","08:30","10:15","10:00","12:15","15:00","17:00","18:30","19:30","20:30","22:00","22:01","23:00","23:59","00:30","00:31","01:01","01:02","01:05","01:15"] }
     };
 
-    // ======================= İLETİŞİM NUMARALARI (VERİLEN LİNTEKİ TÜM ŞEHİRLER) =======================
+    // İLETİŞİM NUMARALARI
     const iletisimListesi = [
-        { sehir: "VAN", tel: "04322190065" },
-        { sehir: "İSTANBUL", tel: "05392071065" },
-        { sehir: "ALİBEYKÖY", tel: "02124272715" },
-        { sehir: "SULTANBEYLİ", tel: "05314953188" },
-        { sehir: "GEBZE", tel: "05319910248" },
-        { sehir: "KOCAELİ", tel: "05559982414" },
-        { sehir: "SAKARYA", tel: "05302241414" },
-        { sehir: "DÜZCE", tel: "03805232563" },
-        { sehir: "ANKARA", tel: "03122071511" },
-        { sehir: "KIRŞEHİR", tel: "05412383840" },
-        { sehir: "KAYSERİ", tel: "03523270065" },
-        { sehir: "GÜRÜN", tel: "05424706552" },
-        { sehir: "MALATYA", tel: "04222380875" },
-        { sehir: "KOVANCILAR", tel: "05384572626" },
-        { sehir: "BİNGÖL", tel: "05325230614" },
-        { sehir: "SOLHAN", tel: "05072137579" },
-        { sehir: "MUŞ", tel: "04362162748" },
-        { sehir: "GÜROYMAK", tel: "04345112001" },
-        { sehir: "BİTLİS", tel: "05428114931" },
-        { sehir: "TATVAN", tel: "05422087213" },
-        { sehir: "GEVAŞ", tel: "05434372189" },
-        { sehir: "BURSA", tel: "02242612933" },
-        { sehir: "İNEGÖL", tel: "02247159494" },
-        { sehir: "BOZÖYÜK", tel: "02283141355" },
-        { sehir: "ESKİŞEHİR", tel: "02222279700" },
-        { sehir: "GEMEREK", tel: "03466548312" },
-        { sehir: "SİVAS", tel: "05462263193" },
-        { sehir: "ERZİNCAN", tel: "04462147676" },
-        { sehir: "ERZURUM", tel: "04422335218" },
-        { sehir: "HORASAN", tel: "05372137579" },
-        { sehir: "ELEŞKİRT", tel: "05465815347" },
-        { sehir: "AĞRI", tel: "04722156903" },
-        { sehir: "PATNOS", tel: "04726169739" },
-        { sehir: "ERCİŞ", tel: "05382373676" },
-        { sehir: "MURADİYE", tel: "05352715697" },
-        { sehir: "KÖPRÜKÖY", tel: "05307017344" },
-        { sehir: "PASİNLER", tel: "05322012254" },
-        { sehir: "YALIOVA", tel: "05322897569" }
+        { sehir: "VAN", tel: "04322190065" }, { sehir: "İSTANBUL", tel: "05392071065" }, { sehir: "ALİBEYKÖY", tel: "02124272715" },
+        { sehir: "SULTANBEYLİ", tel: "05314953188" }, { sehir: "GEBZE", tel: "05319910248" }, { sehir: "KOCAELİ", tel: "05559982414" },
+        { sehir: "SAKARYA", tel: "05302241414" }, { sehir: "DÜZCE", tel: "03805232563" }, { sehir: "ANKARA", tel: "03122071511" },
+        { sehir: "KIRŞEHİR", tel: "05412383840" }, { sehir: "KAYSERİ", tel: "03523270065" }, { sehir: "GÜRÜN", tel: "05424706552" },
+        { sehir: "MALATYA", tel: "04222380875" }, { sehir: "KOVANCILAR", tel: "05384572626" }, { sehir: "BİNGÖL", tel: "05325230614" },
+        { sehir: "SOLHAN", tel: "05072137579" }, { sehir: "MUŞ", tel: "04362162748" }, { sehir: "GÜROYMAK", tel: "04345112001" },
+        { sehir: "BİTLİS", tel: "05428114931" }, { sehir: "TATVAN", tel: "05422087213" }, { sehir: "GEVAŞ", tel: "05434372189" },
+        { sehir: "BURSA", tel: "02242612933" }, { sehir: "İNEGÖL", tel: "02247159494" }, { sehir: "BOZÖYÜK", tel: "02283141355" },
+        { sehir: "ESKİŞEHİR", tel: "02222279700" }, { sehir: "GEMEREK", tel: "03466548312" }, { sehir: "SİVAS", tel: "05462263193" },
+        { sehir: "ERZİNCAN", tel: "04462147676" }, { sehir: "ERZURUM", tel: "04422335218" }, { sehir: "HORASAN", tel: "05372137579" },
+        { sehir: "ELEŞKİRT", tel: "05465815347" }, { sehir: "AĞRI", tel: "04722156903" }, { sehir: "PATNOS", tel: "04726169739" },
+        { sehir: "ERCİŞ", tel: "05382373676" }, { sehir: "MURADİYE", tel: "05352715697" }, { sehir: "KÖPRÜKÖY", tel: "05307017344" },
+        { sehir: "PASİNLER", tel: "05322012254" }, { sehir: "YALIOVA", tel: "05322897569" }
     ];
 
-    // Normalize fonksiyonları (güzergah araması için)
     function normalizeString(str) {
-        return str.toUpperCase().trim().replace(/İ/g,'I').replace(/I/g,'I').replace(/Ğ/g,'G').replace(/Ü/g,'U').replace(/Ş/g,'S').replace(/Ö/g,'O').replace(/Ç/g,'C').replace(/ OTOGARI$/g,'').replace(/ OTOGAR$/g,'');
+        return str.toUpperCase().trim().replace(/İ/g,'I').replace(/I/g,'I').replace(/Ğ/g,'G').replace(/Ü/g,'U').replace(/Ş/g,'S').replace(/Ö/g,'O').replace(/Ç/g,'C');
     }
+    
     function normalizeDurak(ad) {
         if(!ad) return "";
         const map = { "VAN":"Van","ISTANBUL":"İstanbul","ESENLER":"Esenler","ANKARA":"Ankara","KIRIKKALE":"Kırıkkale","KIRSEHIR":"Kırşehir","KAYSERI":"Kayseri","MALATYA":"Malatya","ELAZIG":"ELAZIĞ","MUS":"Muş","BINGOL":"Bingöl","BOLU":"Bolu","DUZCE":"Düzce","ADAPAZARI":"Adapazarı","IZMIT":"İzmit","GEBZE":"Gebze","SIVAS":"Sivas","ERZINCAN":"Erzincan","ERZURUM":"Erzurum","AGRI":"Ağrı","PATNOS":"Patnos","ERCIS":"Erciş","TATVAN":"Tatvan","AHLAT":"Ahlat","BITLIS":"Bitlis","GÜROYMAK":"Güroymak","SOLHAN":"Solhan","GÜRÜN":"Gürün","SULTANBEYLI":"Sultanbeyli","ALIBEYKOY":"Alibeyköy","KOVANCILAR":"KOVANCILAR","ADİLCEVAZ":"ADİLCEVAZ" };
-        let normalized = ad.trim();
-        let key = normalizeString(normalized);
+        let key = normalizeString(ad.trim());
         for(let [k,v] of Object.entries(map)) if(normalizeString(k)===key) return v;
-        return normalized.charAt(0).toUpperCase()+normalized.slice(1).toLowerCase();
+        return ad.trim().charAt(0).toUpperCase() + ad.trim().slice(1).toLowerCase();
     }
+    
     function seferAraVeGuzergahGoster(bin, inil) {
         let sonuc = [];
         let normBin = normalizeDurak(bin), normIn = normalizeDurak(inil);
@@ -560,44 +627,31 @@
         "https://www.tasimacilar.com/d/news/12107.jpg",
         "https://daimlerbuses-mbngw.scene7.com/is/image/daimlerbusesmbngw/mbbo-tr-content-travego-comfort-48%3A16x9?ts=1759158598886&dpr=off",
         "https://content.presspage.com/uploads/2190/1920_mercedes-benz-travego-urun-bulteni-medya-mercedes-benz-com-tr-2.jpg?10000",
-        "", "", ""  // 3 ekstra görsel için boş
+        "", "", ""
     ];
+    
     function renderHomeGallery() { let imgs = homeGalleryImages.filter(u=>u.trim()!== ""); if(imgs.length===0) return ''; return `<div class="home-gallery">${imgs.map(img=>`<img src="${img}" alt="Otobüs" loading="lazy" onerror="this.style.display='none'">`).join('')}</div>`; }
     function getTodayDate() { let d=new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 
-    // Müşteri Hizmetleri / İletişim sayfaları için şehir listesini render eden fonksiyon
     function renderCityContactList(baslik = "Tüm Şehirlerimiz ve İletişim Numaraları") {
-        return `
-            <div style="margin-top: 20px;">
-                <div class="contact-section-subtitle"><i class="fas fa-phone-alt"></i> ${baslik}</div>
-                <div class="contact-cities-grid">
-                    ${iletisimListesi.map(item => `
-                        <div class="city-card">
-                            <div class="city-name"><i class="fas fa-map-marker-alt"></i> ${item.sehir}</div>
-                            <a href="tel:${item.tel}" class="phone-button"><i class="fas fa-phone"></i> Ara ${item.tel}</a>
-                        </div>
-                    `).join('')}
-                </div>
-                <p style="margin-top: 20px; font-size:0.8rem; text-align:center; background:#eef2f5; padding:8px; border-radius:40px;">
-                    <i class="fas fa-info-circle"></i> Yukarıdaki numaralara tıklayarak doğrudan ilgili şehir temsilcimizle görüşebilirsiniz.
-                </p>
-            </div>
-        `;
+        return `<div style="margin-top: 20px;"><div class="contact-section-subtitle"><i class="fas fa-phone-alt"></i> ${baslik}</div><div class="contact-cities-grid">${iletisimListesi.map(item => `<div class="city-card"><div class="city-name"><i class="fas fa-map-marker-alt"></i> ${item.sehir}</div><a href="tel:${item.tel}" class="phone-button"><i class="fas fa-phone"></i> Ara ${item.tel}</a></div>`).join('')}</div><p style="margin-top: 20px; font-size:0.8rem; text-align:center; background:#eef2f5; padding:8px; border-radius:40px;"><i class="fas fa-info-circle"></i> Yukarıdaki numaralara tıklayarak doğrudan ilgili şehir temsilcimizle görüşebilirsiniz.</p></div>`;
     }
 
     function renderHome() {
         return `<div class="hero"><div class="container"><h2>Nereden nereye gitmek istiyorsunuz?</h2><p>Van, İstanbul, Ankara ve tüm ara duraklar arasında sefer sorgulayın.</p><div class="search-card"><form id="aramaForm" class="search-form"><input type="text" id="nereden" placeholder="Nereden? (Örn: Tatvan, Van)"><input type="text" id="nereye" placeholder="Nereye? (Örn: İstanbul)"><input type="date" id="tarih" value="${getTodayDate()}" min="${getTodayDate()}"><button type="submit"><i class="fas fa-search"></i> Sefer Ara</button></form><div id="sonucAlan" class="sonuc"></div></div></div></div><div class="container">${renderHomeGallery()}</div>`;
     }
+    
     function sonucGoster(binilen, inilen, tarih) {
         const div = document.getElementById("sonucAlan");
         const bul = seferAraVeGuzergahGoster(binilen, inilen);
-        if(!bul.length) { div.style.display="block"; div.innerHTML=`<p>❌ Sefer bulunamadı.</p>`; return; }
+        if(!bul.length) { div.style.display="block"; div.innerHTML=`<p style="color:white;">❌ Sefer bulunamadı.</p>`; return; }
         let html = `<h3>🚍 ${binilen} → ${inilen} seferleri</h3>`;
-        bul.forEach(s=>{ html+=`<div class="sefer-kart"><div><strong>${s.hat}</strong> (Kalkış: ${s.kalkisSaati})</div><div>🕒 Binme: ${s.binisSaati}  İnme: ${s.inisSaati}</div><div class="guzergah-ozet"><strong>📌 Güzergah:</strong><br>${s.rota.map(r=>`${r.saat} - ${r.durak}`).join(' → ')}</div><div style="margin-top:12px;"><a href="tel:04322190065" style="background:#0a2f44; color:white; padding:8px 18px; border-radius:40px; text-decoration:none;">📞 Rezervasyon için 0432 219 0065</a></div></div>`; });
+        bul.forEach(s=>{ html+=`<div class="sefer-kart"><div><strong>${s.hat}</strong> (Kalkış: ${s.kalkisSaati})</div><div>🕒 Binme: ${s.binisSaati}  |  İnme: ${s.inisSaati}</div><div class="guzergah-ozet"><strong>📌 Güzergah:</strong><br>${s.rota.map(r=>`${r.saat} - ${r.durak}`).join(' → ')}</div><div style="margin-top:12px;"><a href="tel:04322190065">📞 Rezervasyon için 0432 219 0065</a></div></div>`; });
         div.style.display="block"; div.innerHTML=html;
     }
 
     function renderSeferler() { let html=`<div class="container"><h2 class="page-title">Günlük Ana Hat Seferlerimiz</h2>`; for(let h in hatlar) html+=`<div class="guzergah-detay"><div class="guzergah-baslik">🚌 ${h} - Kalkış: ${hatlar[h].kalkisSaati}</div><p>${hatlar[h].duraklar.join(' → ')}</p><a href="#" data-page="guzergahlar" style="color:#e67e22;">Tüm durakları göster</a></div>`; return html+`</div>`; }
+    
     function renderGuzergahlar() { let html=`<div class="container"><h2 class="page-title">Tüm Güzergah ve Saatleri</h2>`; for(let h in hatlar) { html+=`<div class="guzergah-detay"><div class="guzergah-baslik">${h} (${hatlar[h].kalkisSaati})</div>`; for(let i=0;i<hatlar[h].duraklar.length;i++) html+=`<div class="durak-satir"><span>${hatlar[h].duraklar[i]}</span><span>${hatlar[h].saatler[i]}</span></div>`; html+=`</div>`; } return html+`</div>`; }
     
     function renderDestek() {
@@ -625,6 +679,7 @@
         if(activeLink) activeLink.classList.add("active");
         window.scrollTo({top:0, behavior:"smooth"});
     }
+    
     document.querySelectorAll("[data-page]").forEach(el=>el.addEventListener("click",(e)=>{ e.preventDefault(); loadPage(el.getAttribute("data-page")); }));
     loadPage("home");
 </script>
