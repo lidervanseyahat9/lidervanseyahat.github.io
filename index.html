@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Lider Van Seyahat</title>
-    <meta name="description" content="Lider Van Seyahat ile Van, İstanbul, Ankara ve tüm ara duraklar arasında otobüs bileti sorgulama. Ahlat, Tatvan, Muş, Elazığ, Malatya, Kayseri ve daha fazlası.">
+    <title>Lider Van Seyahat - Admin Panel</title>
+    <meta name="description" content="Lider Van Seyahat ile Van, İstanbul, Ankara ve tüm ara duraklar arasında otobüs bileti sorgulama.">
     
-    <!-- FAVICON: Sekme Logosu ve Web Arama Sonuçlarındaki Logo -->
-    <link rel="icon" type="image/jpeg" href="https://i.hizliresim.com/d2gpqr1.jpg">
-    <link rel="shortcut icon" type="image/jpeg" href="https://i.hizliresim.com/d2gpqr1.jpg">
+    <!-- FAVICON -->
+    <link rel="icon" type="image/jpeg" href="https://i.hizliresim.com/j4ghbml.png">
+    <link rel="shortcut icon" type="image/jpeg" href="https://i.hizliresim.com/j4ghbml.png">
     <link rel="apple-touch-icon" href="https://i.hizliresim.com/d2gpqr1.jpg">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -66,10 +66,6 @@
             opacity: 0.8;
             margin-top: 4px;
         }
-        .site-logo-header {
-            display: flex;
-            align-items: center;
-        }
         .site-logo-header img {
             height: 50px;
             width: auto;
@@ -87,8 +83,9 @@
             display: flex;
             gap: 25px;
             align-items: center;
+            flex-wrap: wrap;
         }
-        .contact-info a {
+        .contact-info a, .contact-info span {
             color: white;
             text-decoration: none;
             font-size: 16px;
@@ -99,14 +96,6 @@
         }
         .contact-info a:hover {
             color: #f39c12;
-        }
-        .contact-info span {
-            color: white;
-            font-size: 16px;
-            cursor: default;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
         }
         .instagram-header {
             display: flex;
@@ -119,14 +108,6 @@
         }
         .instagram-header:hover {
             background: rgba(255,255,255,0.2);
-            transform: scale(1.02);
-        }
-        .instagram-header i {
-            font-size: 18px;
-        }
-        .instagram-header span {
-            font-size: 13px;
-            font-weight: 500;
         }
         .instagram-header a {
             color: white;
@@ -178,9 +159,6 @@
             border-radius: 40px;
             border: 1px solid #ccc;
             font-size: 16px;
-        }
-        .search-form input {
-            background: white;
         }
         .search-form button {
             background: #e67e22;
@@ -235,6 +213,10 @@
             border-radius: 15px;
             margin-bottom: 15px;
             font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
         }
         .durak-satir {
             display: flex;
@@ -282,23 +264,14 @@
             gap: 10px;
             margin-bottom: 10px;
         }
-        .contact-item a {
-            color: #ccc;
-            text-decoration: none;
-        }
-        .contact-item a:hover {
-            color: #f39c12;
-        }
         @media (max-width: 700px) {
             .footer-col { width: 100%; margin-bottom: 20px; }
             .logo-area { flex-direction: column; text-align: center; }
             .contact-header { margin-top: 10px; align-items: center; }
-            .contact-info { justify-content: center; flex-wrap: wrap; gap: 12px; }
-            .logo { justify-content: center; text-align: center; }
+            .contact-info { justify-content: center; }
             .bus-gallery img { width: calc(50% - 20px); }
-            .site-logo-header img { height: 40px; }
         }
-        .contact-form {
+        .contact-form, .admin-panel {
             background: white;
             border-radius: 20px;
             padding: 30px;
@@ -321,10 +294,6 @@
             border-radius: 10px;
             font-size: 16px;
         }
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
         .submit-btn {
             background: #e67e22;
             color: white;
@@ -346,18 +315,120 @@
             margin-top: 15px;
             display: none;
         }
-        input[type="date"] {
-            cursor: pointer;
-        }
-        .phone-link {
+        .admin-btn {
+            background: #2c3e50;
             color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 14px;
+            margin-left: 15px;
         }
-        .phone-link:hover {
-            color: #f39c12;
+        .admin-btn:hover {
+            background: #e67e22;
+            color: white;
+        }
+        .sefer-duzenle-btn, .sefer-sil-btn {
+            background: #f39c12;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 12px;
+        }
+        .sefer-sil-btn {
+            background: #e74c3c;
+            color: white;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 90%;
+            width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .close-modal {
+            cursor: pointer;
+            font-size: 24px;
+        }
+        .durak-grup {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        .durak-grup input {
+            flex: 1;
+        }
+        .ekle-durak-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .destek-talebi {
+            border-bottom: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        .login-box {
+            max-width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        .login-box input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+        .admin-tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .admin-tab {
+            cursor: pointer;
+            padding: 10px 20px;
+            background: #ecf0f1;
+            border-radius: 30px;
+        }
+        .admin-tab.active {
+            background: #0a2f44;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
         }
     </style>
 </head>
@@ -367,7 +438,6 @@
     <div class="container">
         <div class="logo-area">
             <div class="logo">
-                <!-- Site Logosu - LİDER VAN SEYAHAT ve tagline'ın solunda -->
                 <div class="site-logo-header">
                     <img src="https://i.hizliresim.com/d2gpqr1.jpg" alt="Lider Van Seyahat Logo">
                 </div>
@@ -378,13 +448,10 @@
             </div>
             <div class="contact-header">
                 <div class="contact-info">
-                    <a href="tel:04322190065" class="phone-link">
-                        <i class="fas fa-phone-alt"></i> 0432 219 0065
-                    </a>
+                    <a href="tel:04322190065"><i class="fas fa-phone-alt"></i> 0432 219 0065</a>
                     <span><i class="far fa-envelope"></i> lidervanseyahat9@gmail.com</span>
-                    <!-- Instagram Linki - Sadece logo + Instagram yazısı -->
                     <div class="instagram-header">
-                        <a href="https://www.instagram.com/lidervan.seyahat?igsh=bWd2OXM1ZzFmMnJ5" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.instagram.com/lidervan.seyahat?igsh=bWd2OXM1ZzFmMnJ5" target="_blank">
                             <i class="fab fa-instagram"></i>
                             <span>Instagram</span>
                         </a>
@@ -398,6 +465,7 @@
             <a href="#" data-page="guzergahlar">Tüm Güzergahlar</a>
             <a href="#" data-page="destek">Müşteri Hizmetleri</a>
             <a href="#" data-page="iletisim">İletişim</a>
+            <a href="#" data-page="admin" class="admin-btn"><i class="fas fa-lock"></i> Admin</a>
         </nav>
     </div>
 </div>
@@ -417,29 +485,17 @@
         </div>
         <div class="footer-col">
             <h4>İletişim</h4>
-            <div class="contact-item">
-                <i class="fas fa-phone-alt"></i>
-                <a href="tel:04322190065">0432 219 0065</a>
-            </div>
-            <div class="contact-item">
-                <i class="far fa-envelope"></i>
-                <span>lidervanseyahat9@gmail.com</span>
-            </div>
-            <div class="contact-item">
-                <i class="fab fa-instagram"></i>
-                <a href="https://www.instagram.com/lidervan.seyahat?igsh=bWd2OXM1ZzFmMnJ5" target="_blank">@lidervan.seyahat</a>
-            </div>
-            <div class="contact-item">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Van Otogarı No: 12, İpekyolu/VAN</span>
-            </div>
+            <div class="contact-item"><i class="fas fa-phone-alt"></i> <a href="tel:04322190065">0432 219 0065</a></div>
+            <div class="contact-item"><i class="far fa-envelope"></i> <span>lidervanseyahat9@gmail.com</span></div>
+            <div class="contact-item"><i class="fab fa-instagram"></i> <a href="https://www.instagram.com/lidervan.seyahat" target="_blank">@lidervan.seyahat</a></div>
+            <div class="contact-item"><i class="fas fa-map-marker-alt"></i> <span>Van Otogarı No: 12, İpekyolu/VAN</span></div>
         </div>
         <div class="footer-col">
             <h4>Hızlı Erişim</h4>
-            <a href="#" data-page="seferler" style="color:#ccc; text-decoration:none; display:block;">Seferler</a>
-            <a href="#" data-page="guzergahlar" style="color:#ccc; text-decoration:none; display:block;">Güzergahlar</a>
-            <a href="#" data-page="destek" style="color:#ccc; text-decoration:none; display:block;">Destek Talebi</a>
-            <a href="#" data-page="iletisim" style="color:#ccc; text-decoration:none; display:block;">İletişim</a>
+            <a href="#" data-page="seferler">Seferler</a><br>
+            <a href="#" data-page="guzergahlar">Güzergahlar</a><br>
+            <a href="#" data-page="destek">Destek Talebi</a><br>
+            <a href="#" data-page="iletisim">İletişim</a>
         </div>
     </div>
     <div class="container" style="text-align:center; margin-top:20px;">
@@ -448,162 +504,87 @@
 </div>
 
 <script>
-    // ======================= TÜM GÜZERGAHLAR VE DURAKLAR =======================
-    const hatlar = {
+    // ======================= BAŞLANGIÇ VERİLERİ (LocalStorage'dan yükle veya varsayılanı kullan) =======================
+    const defaultHats = {
         "VAN - İSTANBUL": {
             yon: "VAN->İSTANBUL",
             kalkisSaati: "11:00",
-            duraklar: [
-                "Van", "ADİLCEVAZ", "Ahlat", "Tatvan", "Bitlis",
-                "BİTLİS 2", "Güroymak", "Muş", "Solhan", "SOLHAN 2", "Bingöl",
-                "KOVANCILAR", "ELAZIĞ", "Malatya", "Gürün", "Kayseri",
-                "Kırşehir", "Kırıkkale", "Ankara", "Bolu",
-                "Düzce", "Adapazarı", "İzmit", "Gebze",
-                "Sultanbeyli", "Alibeyköy", "Esenler", "İstanbul"
-            ],
-            saatler: [
-                "11:00", "12:30", "12:59", "13:00", "13:30", "13:31", "14:01", "15:01", "16:01",
-                "16:02", "17:31", "18:31", "19:31", "21:01", "22:31", "01:16", "02:46", "04:16",
-                "06:01", "08:01", "08:31", "09:01", "09:31", "10:01", "10:31", "11:31", "11:59", "12:00"
-            ]
+            duraklar: ["Van", "ADİLCEVAZ", "Ahlat", "Tatvan", "Bitlis", "BİTLİS 2", "Güroymak", "Muş", "Solhan", "SOLHAN 2", "Bingöl", "KOVANCILAR", "ELAZIĞ", "Malatya", "Gürün", "Kayseri", "Kırşehir", "Kırıkkale", "Ankara", "Bolu", "Düzce", "Adapazarı", "İzmit", "Gebze", "Sultanbeyli", "Alibeyköy", "Esenler", "İstanbul"],
+            saatler: ["11:00", "12:30", "12:59", "13:00", "13:30", "13:31", "14:01", "15:01", "16:01", "16:02", "17:31", "18:31", "19:31", "21:01", "22:31", "01:16", "02:46", "04:16", "06:01", "08:01", "08:31", "09:01", "09:31", "10:01", "10:31", "11:31", "11:59", "12:00"]
         },
         "VAN - ANKARA": {
             yon: "VAN->ANKARA",
             kalkisSaati: "15:00",
-            duraklar: [
-                "Van", "Erciş", "Patnos", "Ağrı", "Eleşkirt",
-                "Erzurum", "Erzincan", "Sivas", "Kayseri",
-                "Kırşehir", "Kırıkkale", "Ankara"
-            ],
-            saatler: [
-                "15:01", "16:31", "17:31", "18:31", "19:01",
-                "22:01", "00:01", "04:01", "06:31",
-                "09:01", "10:31", "11:01"
-            ]
+            duraklar: ["Van", "Erciş", "Patnos", "Ağrı", "Eleşkirt", "Erzurum", "Erzincan", "Sivas", "Kayseri", "Kırşehir", "Kırıkkale", "Ankara"],
+            saatler: ["15:01", "16:31", "17:31", "18:31", "19:01", "22:01", "00:01", "04:01", "06:31", "09:01", "10:31", "11:01"]
         },
         "ANKARA - VAN": {
             yon: "ANKARA->VAN",
             kalkisSaati: "17:30",
-            duraklar: [
-                "Ankara", "Kırıkkale", "Kırşehir", "Kayseri", "Sivas",
-                "Erzincan", "Erzurum", "Eleşkirt", "Ağrı", "Patnos",
-                "Erciş", "Van"
-            ],
-            saatler: [
-                "17:31", "19:01", "21:01", "23:01", "01:16", "04:16", "06:31", "09:01", "10:01", "11:01", "11:31", "12:31"
-            ]
+            duraklar: ["Ankara", "Kırıkkale", "Kırşehir", "Kayseri", "Sivas", "Erzincan", "Erzurum", "Eleşkirt", "Ağrı", "Patnos", "Erciş", "Van"],
+            saatler: ["17:31", "19:01", "21:01", "23:01", "01:16", "04:16", "06:31", "09:01", "10:01", "11:01", "11:31", "12:31"]
         },
         "İSTANBUL - VAN": {
             yon: "İSTANBUL->VAN",
             kalkisSaati: "23:00",
-            duraklar: [
-                "İstanbul", "Esenler", "Alibeyköy", "Sultanbeyli", "Gebze", "İzmit",
-                "Adapazarı", "Düzce", "Bolu", "Ankara", "Kırıkkale",
-                "Kırşehir", "Kayseri", "Gürün", "Malatya", "ELAZIĞ",
-                "KOVANCILAR", "Bingöl", "Solhan", "SOLHAN 2", "Muş", "Güroymak",
-                "Bitlis", "BİTLİS 2", "Tatvan", "Ahlat", "ADİLCEVAZ", "Van"
-            ],
-            saatler: [
-                "22:59", "23:30", "00:30", "01:30", "02:00", "02:30",
-                "03:30", "04:00", "07:00", "08:30", "10:15",
-                "10:00", "12:15", "15:00", "17:00", "18:30", "19:30",
-                "20:30", "22:00", "22:01", "23:00", "23:59",
-                "00:30", "00:31", "01:01", "01:02", "01:05", "01:15"
-            ]
+            duraklar: ["İstanbul", "Esenler", "Alibeyköy", "Sultanbeyli", "Gebze", "İzmit", "Adapazarı", "Düzce", "Bolu", "Ankara", "Kırıkkale", "Kırşehir", "Kayseri", "Gürün", "Malatya", "ELAZIĞ", "KOVANCILAR", "Bingöl", "Solhan", "SOLHAN 2", "Muş", "Güroymak", "Bitlis", "BİTLİS 2", "Tatvan", "Ahlat", "ADİLCEVAZ", "Van"],
+            saatler: ["22:59", "23:30", "00:30", "01:30", "02:00", "02:30", "03:30", "04:00", "07:00", "08:30", "10:15", "10:00", "12:15", "15:00", "17:00", "18:30", "19:30", "20:30", "22:00", "22:01", "23:00", "23:59", "00:30", "00:31", "01:01", "01:02", "01:05", "01:15"]
         }
     };
 
-    // Büyük/küçük harf ve Türkçe karakter dönüşümü için yardımcı fonksiyon
-    function normalizeString(str) {
-        return str
-            .toUpperCase()
-            .trim()
-            .replace(/İ/g, 'I')
-            .replace(/I/g, 'I')
-            .replace(/Ğ/g, 'G')
-            .replace(/Ü/g, 'U')
-            .replace(/Ş/g, 'S')
-            .replace(/Ö/g, 'O')
-            .replace(/Ç/g, 'C')
-            .replace(/ OTOGARI$/g, '')
-            .replace(/ OTOGAR$/g, '')
-            .replace(/\(ASTI\)/g, '');
+    // Destek taleplerini localStorage'a kaydetme
+    let destekTalepleri = JSON.parse(localStorage.getItem("destekTalepleri") || "[]");
+
+    function destekKaydet(isim, email, telefon, konu, mesaj) {
+        const yeniTalep = {
+            id: Date.now(),
+            tarih: new Date().toLocaleString("tr-TR"),
+            isim, email, telefon, konu, mesaj,
+            durum: "Beklemede"
+        };
+        destekTalepleri.unshift(yeniTalep);
+        localStorage.setItem("destekTalepleri", JSON.stringify(destekTalepleri));
+        return yeniTalep;
     }
 
-    // Durak adını normalize et (tüm formatları standart hale getir)
+    // Sefer verilerini yönetme
+    let hatlar = JSON.parse(localStorage.getItem("liderVanSeferler"));
+    if(!hatlar || Object.keys(hatlar).length === 0) {
+        hatlar = JSON.parse(JSON.stringify(defaultHats));
+        localStorage.setItem("liderVanSeferler", JSON.stringify(hatlar));
+    }
+
+    function seferleriKaydet() {
+        localStorage.setItem("liderVanSeferler", JSON.stringify(hatlar));
+    }
+
+    // Admin şifresi
+    const ADMIN_PASSWORD = "admin123";
+    let adminLoggedIn = false;
+
+    function normalizeString(str) {
+        return str.toUpperCase().trim().replace(/İ/g, 'I').replace(/I/g, 'I').replace(/Ğ/g, 'G').replace(/Ü/g, 'U').replace(/Ş/g, 'S').replace(/Ö/g, 'O').replace(/Ç/g, 'C').replace(/ OTOGARI$/g, '').replace(/ OTOGAR$/g, '').replace(/\(ASTI\)/g, '');
+    }
+
     function normalizeDurak(ad) {
         if(!ad) return "";
-        
         let normalized = ad.trim();
-        
-        // Tüm durakların standart eşleme tablosu (büyük/küçük harf duyarsız)
         const standardMap = {
-            "VAN": "Van",
-            "ISTANBUL": "İstanbul",
-            "İSTANBUL": "İstanbul",
-            "ESENLER": "Esenler",
-            "ANKARA": "Ankara",
-            "KIRIKKALE": "Kırıkkale",
-            "KIRSEHIR": "Kırşehir",
-            "KIRŞEHIR": "Kırşehir",
-            "KAYSERI": "Kayseri",
-            "KAYSERİ": "Kayseri",
-            "MALATYA": "Malatya",
-            "ELAZIG": "ELAZIĞ",
-            "ELAZIĞ": "ELAZIĞ",
-            "MUS": "Muş",
-            "MUŞ": "Muş",
-            "BINGOL": "Bingöl",
-            "BİNGÖL": "Bingöl",
-            "BOLU": "Bolu",
-            "DUZCE": "Düzce",
-            "DÜZCE": "Düzce",
-            "ADAPAZARI": "Adapazarı",
-            "IZMIT": "İzmit",
-            "İZMİT": "İzmit",
-            "GEBZE": "Gebze",
-            "SIVAS": "Sivas",
-            "ERZINCAN": "Erzincan",
-            "ERZİNCAN": "Erzincan",
-            "ERZURUM": "Erzurum",
-            "AGRI": "Ağrı",
-            "AĞRI": "Ağrı",
-            "PATNOS": "Patnos",
-            "ERCIS": "Erciş",
-            "ERCİŞ": "Erciş",
-            "ELESKIRT": "Eleşkirt",
-            "ELEŞKİRT": "Eleşkirt",
-            "GUROYMAK": "Güroymak",
-            "GÜROYMAK": "Güroymak",
-            "TATVAN": "Tatvan",
-            "AHLAT": "Ahlat",
-            "BITLIS": "Bitlis",
-            "BİTLİS": "Bitlis",
-            "BİTLİS 2": "BİTLİS 2",
-            "ADILCEVAZ": "ADİLCEVAZ",
-            "ADİLCEVAZ": "ADİLCEVAZ",
-            "SOLHAN": "Solhan",
-            "SOLHAN 2": "SOLHAN 2",
-            "GURUN": "Gürün",
-            "GÜRÜN": "Gürün",
-            "SULTANBEYLI": "Sultanbeyli",
-            "SULTANBEYLİ": "Sultanbeyli",
-            "ALIBEYKOY": "Alibeyköy",
-            "ALİBEYKÖY": "Alibeyköy",
-            "KOVANCILAR": "KOVANCILAR"
+            "VAN": "Van", "ISTANBUL": "İstanbul", "İSTANBUL": "İstanbul", "ESENLER": "Esenler", "ANKARA": "Ankara",
+            "KIRIKKALE": "Kırıkkale", "KIRSEHIR": "Kırşehir", "KIRŞEHIR": "Kırşehir", "KAYSERI": "Kayseri", "KAYSERİ": "Kayseri",
+            "MALATYA": "Malatya", "ELAZIG": "ELAZIĞ", "ELAZIĞ": "ELAZIĞ", "MUS": "Muş", "MUŞ": "Muş", "BINGOL": "Bingöl",
+            "BİNGÖL": "Bingöl", "BOLU": "Bolu", "DUZCE": "Düzce", "DÜZCE": "Düzce", "ADAPAZARI": "Adapazarı", "IZMIT": "İzmit",
+            "İZMİT": "İzmit", "GEBZE": "Gebze", "SIVAS": "Sivas", "ERZINCAN": "Erzincan", "ERZİNCAN": "Erzincan",
+            "ERZURUM": "Erzurum", "AGRI": "Ağrı", "AĞRI": "Ağrı", "PATNOS": "Patnos", "ERCIS": "Erciş", "ERCİŞ": "Erciş",
+            "ELESKIRT": "Eleşkirt", "ELEŞKİRT": "Eleşkirt", "GUROYMAK": "Güroymak", "GÜROYMAK": "Güroymak", "TATVAN": "Tatvan",
+            "AHLAT": "Ahlat", "BITLIS": "Bitlis", "BİTLİS": "Bitlis", "BİTLİS 2": "BİTLİS 2", "ADILCEVAZ": "ADİLCEVAZ",
+            "ADİLCEVAZ": "ADİLCEVAZ", "SOLHAN": "Solhan", "SOLHAN 2": "SOLHAN 2", "GURUN": "Gürün", "GÜRÜN": "Gürün",
+            "SULTANBEYLI": "Sultanbeyli", "SULTANBEYLİ": "Sultanbeyli", "ALIBEYKOY": "Alibeyköy", "ALİBEYKÖY": "Alibeyköy", "KOVANCILAR": "KOVANCILAR"
         };
-        
-        // Normalize edilmiş haliyle kontrol et
         const normalizedKey = normalizeString(normalized);
-        
-        // Eşleme tablosunda varsa onu kullan
         for(let [key, value] of Object.entries(standardMap)) {
-            if(normalizeString(key) === normalizedKey) {
-                return value;
-            }
+            if(normalizeString(key) === normalizedKey) return value;
         }
-        
-        // Yoksa orijinal formatını koru ama ilk harfi büyük yap
         return normalized.charAt(0).toUpperCase() + normalized.slice(1).toLowerCase();
     }
 
@@ -611,115 +592,53 @@
         let sonuclar = [];
         const normalizedBin = normalizeDurak(binilenYer);
         const normalizedIn = normalizeDurak(inilenYer);
-        
         for(let hatAdi in hatlar) {
             const hat = hatlar[hatAdi];
             const duraklar = hat.duraklar;
             let idxBin = -1, idxIn = -1;
-            
-            // Durak isimlerini normalize ederek karşılaştır
             for(let i = 0; i < duraklar.length; i++) {
-                const normalizedDurak = normalizeDurak(duraklar[i]);
-                if(normalizedDurak === normalizedBin) idxBin = i;
-                if(normalizedDurak === normalizedIn) idxIn = i;
+                if(normalizeDurak(duraklar[i]) === normalizedBin) idxBin = i;
+                if(normalizeDurak(duraklar[i]) === normalizedIn) idxIn = i;
             }
-            
             if(idxBin !== -1 && idxIn !== -1 && idxBin < idxIn) {
                 const araDuraklar = duraklar.slice(idxBin, idxIn + 1);
                 const araSaatler = hat.saatler.slice(idxBin, idxIn + 1);
                 const rotaDetay = araDuraklar.map((d, i) => ({ durak: d, saat: araSaatler[i] }));
-                sonuclar.push({
-                    hat: hatAdi,
-                    binisYer: binilenYer,
-                    inisYer: inilenYer,
-                    binisSaati: hat.saatler[idxBin],
-                    inisSaati: hat.saatler[idxIn],
-                    kalkisSaati: hat.kalkisSaati,
-                    rota: rotaDetay
-                });
+                sonuclar.push({ hat: hatAdi, binisYer: binilenYer, inisYer: inilenYer, binisSaati: hat.saatler[idxBin], inisSaati: hat.saatler[idxIn], kalkisSaati: hat.kalkisSaati, rota: rotaDetay });
             }
         }
         return sonuclar;
     }
 
     const app = document.getElementById("app");
-
-    const busImages = [
-        "",
-        "",
-        ""
-    ];
-
+    const busImages = ["https://i.hizliresim.com/l0uwvkp.jpg", "https://i.hizliresim.com/h4bsldt.jpg", "https://i.hizliresim.com/ier4g2d.jpg"];
     function renderBusGallery() {
-        return `<div class="bus-gallery">
-            ${busImages.map(img => `<img src="${img}" alt="Lider Van Seyahat Otobüs" onerror="this.style.display='none'">`).join('')}
-        </div>`;
+        return `<div class="bus-gallery">${busImages.map(img => `<img src="${img}" alt="Lider Van Seyahat Otobüs" onerror="this.style.display='none'">`).join('')}</div>`;
     }
-
     function getTodayDate() {
         const today = new Date();
-        const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const day = String(today.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
+        return `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
     }
 
+    // Sayfa render fonksiyonları
     function renderHome() {
         const todayDate = getTodayDate();
         return `
-            <div class="hero">
-                <div class="container">
-                    <h2>Nereden nereye gitmek istiyorsunuz?</h2>
-                    <p>Van, İstanbul, Ankara ve tüm ara duraklar arasında sefer sorgulayın, güzergahı görün.</p>
-                    <div class="search-card">
-                        <form id="aramaForm" class="search-form">
-                            <input type="text" id="nereden" placeholder="Nereden? (Örn: Tatvan, Ahlat, Van, Ankara)" autocomplete="off">
-                            <input type="text" id="nereye" placeholder="Nereye? (Örn: Elazığ, İstanbul, Kayseri)" autocomplete="off">
-                            <input type="date" id="tarih" value="${todayDate}" min="${todayDate}">
-                            <button type="submit"><i class="fas fa-search"></i> Sefer ve Güzergah Ara</button>
-                        </form>
-                        <div id="sonucAlan" class="sonuc"></div>
-                    </div>
+            <div class="hero"><div class="container">
+                <h2>Nereden nereye gitmek istiyorsunuz?</h2>
+                <p>Van, İstanbul, Ankara ve tüm ara duraklar arasında sefer sorgulayın.</p>
+                <div class="search-card">
+                    <form id="aramaForm" class="search-form">
+                        <input type="text" id="nereden" placeholder="Nereden? (Örn: Tatvan, Ahlat)" autocomplete="off">
+                        <input type="text" id="nereye" placeholder="Nereye? (Örn: Elazığ, İstanbul)" autocomplete="off">
+                        <input type="date" id="tarih" value="${todayDate}" min="${todayDate}">
+                        <button type="submit"><i class="fas fa-search"></i> Sefer ve Güzergah Ara</button>
+                    </form>
+                    <div id="sonucAlan" class="sonuc"></div>
                 </div>
-            </div>
-            <div class="container">
-                ${renderBusGallery()}
-            </div>
+            </div></div>
+            <div class="container">${renderBusGallery()}</div>
         `;
-    }
-
-    function sonucGoster(binilen, inilen, secilenTarih) {
-        const sonucDiv = document.getElementById("sonucAlan");
-        const bulunanlar = seferAraVeGuzergahGoster(binilen, inilen);
-        if(bulunanlar.length === 0) {
-            sonucDiv.style.display = "block";
-            sonucDiv.innerHTML = `<p>❌ "${binilen}" ile "${inilen}" arasında doğrudan sefer bulunamadı. Lütfen farklı duraklar deneyin veya yönü kontrol edin.</p>`;
-            return;
-        }
-        
-        const tarihObj = new Date(secilenTarih);
-        const gunler = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
-        const aylar = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
-        const formattedDate = `${tarihObj.getDate()} ${aylar[tarihObj.getMonth()]} ${tarihObj.getFullYear()} ${gunler[tarihObj.getDay()]}`;
-        
-        let html = `<h3>🚍 ${binilen} → ${inilen} ARASI SEFERLER - ${formattedDate}</h3>`;
-        bulunanlar.forEach(sef => {
-            html += `<div class="sefer-kart">
-                        <div><strong>${sef.hat}</strong> (Kalkış: ${sef.kalkisSaati})</div>
-                        <div>🕒 Binme: ${sef.binisSaati} &nbsp; | &nbsp; 🛑 İnme: ${sef.inisSaati}</div>
-                        <div class="guzergah-ozet">
-                            <strong>📌 ${sef.binisYer} ile ${sef.inisYer} arası güzergah:</strong><br>
-                            ${sef.rota.map(r => `${r.saat} - ${r.durak}`).join(' → ')}
-                        </div>
-                        <div style="margin-top:12px;">
-                            <a href="tel:04322190065" style="background:#0a2f44; color:white; padding:8px 20px; border-radius:40px; display:inline-block; text-decoration:none;">
-                                📞 Rezervasyon için 0432 219 0065
-                            </a>
-                        </div>
-                    </div>`;
-        });
-        sonucDiv.style.display = "block";
-        sonucDiv.innerHTML = html;
     }
 
     function renderSeferler() {
@@ -755,22 +674,13 @@
                 <h2 class="page-title">Müşteri Hizmetleri - Destek Talebi</h2>
                 ${renderBusGallery()}
                 <div class="contact-form">
-                    <h3 style="margin-bottom:20px; color:#0a2f44;">Bize Ulaşın</h3>
+                    <h3>Bize Ulaşın</h3>
                     <form id="destekFormu">
+                        <div class="form-group"><label>İsim Soyisim *</label><input type="text" id="isim" required></div>
+                        <div class="form-group"><label>E-Posta *</label><input type="email" id="email" required></div>
+                        <div class="form-group"><label>Telefon</label><input type="tel" id="telefon"></div>
                         <div class="form-group">
-                            <label>İsim Soyisim *</label>
-                            <input type="text" id="isim" required>
-                        </div>
-                        <div class="form-group">
-                            <label>E-Posta Adresiniz *</label>
-                            <input type="email" id="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Telefon Numaranız</label>
-                            <input type="tel" id="telefon">
-                        </div>
-                        <div class="form-group">
-                            <label>Mesaj Konusu *</label>
+                            <label>Konu *</label>
                             <select id="konu" required>
                                 <option value="">Seçiniz</option>
                                 <option value="Bilet Rezervasyon">Bilet Rezervasyon</option>
@@ -780,12 +690,9 @@
                                 <option value="Diğer">Diğer</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label>Mesajınız *</label>
-                            <textarea id="mesaj" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Destek Talebi Gönder</button>
-                        <div id="formSuccess" class="success-message">Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapılacaktır.</div>
+                        <div class="form-group"><label>Mesaj *</label><textarea id="mesaj" required></textarea></div>
+                        <button type="submit" class="submit-btn">Destek Talebi Gönder</button>
+                        <div id="formSuccess" class="success-message">Mesajınız başarıyla gönderildi.</div>
                     </form>
                 </div>
             </div>
@@ -793,103 +700,287 @@
     }
 
     function renderIletisim() {
-        return `
-            <div class="container">
-                <h2 class="page-title">İletişim Bilgileri</h2>
-                ${renderBusGallery()}
-                <div style="background:white; border-radius:20px; padding:30px;">
-                    <div class="contact-item">
-                        <i class="fas fa-phone-alt"></i>
-                        <a href="tel:04322190065" style="color:#0a2f44; text-decoration:none; font-weight:bold;">0432 219 0065</a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="far fa-envelope"></i>
-                        <span>lidervanseyahat9@gmail.com</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-instagram"></i>
-                        <a href="https://www.instagram.com/lidervan.seyahat?igsh=bWd2OXM1ZzFmMnJ5" target="_blank" style="color:#0a2f44; text-decoration:none; font-weight:bold;">
-                            @lidervan.seyahat
-                        </a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Van Otogarı No: 12, İpekyolu / VAN</span>
-                    </div>
-                    <hr style="margin: 20px 0;">
-                    <h3>Çalışma Saatleri</h3>
-                    <p>Haftanın 7 günü 7/24 hizmetinizdeyiz.</p>
+        return `<div class="container"><h2 class="page-title">İletişim Bilgileri</h2>${renderBusGallery()}<div style="background:white; border-radius:20px; padding:30px;">
+            <div class="contact-item"><i class="fas fa-phone-alt"></i> <a href="tel:04322190065">0432 219 0065</a></div>
+            <div class="contact-item"><i class="far fa-envelope"></i> lidervanseyahat9@gmail.com</div>
+            <div class="contact-item"><i class="fab fa-instagram"></i> <a href="https://www.instagram.com/lidervan.seyahat" target="_blank">@lidervan.seyahat</a></div>
+            <div class="contact-item"><i class="fas fa-map-marker-alt"></i> Van Otogarı No: 12, İpekyolu/VAN</div>
+            <hr><h3>Çalışma Saatleri</h3><p>Haftanın 7 günü 7/24 hizmetinizdeyiz.</p>
+        </div></div>`;
+    }
+
+    // Admin Paneli
+    function renderAdminLogin() {
+        return `<div class="container"><div class="login-box">
+            <h2><i class="fas fa-lock"></i> Admin Girişi</h2>
+            <input type="password" id="adminPassword" placeholder="Şifre">
+            <button class="submit-btn" id="loginBtn">Giriş Yap</button>
+        </div></div>`;
+    }
+
+    function renderAdminPanel() {
+        return `<div class="container">
+            <h2 class="page-title"><i class="fas fa-cogs"></i> Yönetim Paneli</h2>
+            <div class="admin-panel">
+                <div class="admin-tabs">
+                    <div class="admin-tab active" data-tab="seferler">Sefer Yönetimi</div>
+                    <div class="admin-tab" data-tab="talepler">Destek Talepleri (${destekTalepleri.length})</div>
+                </div>
+                <div id="tabSeferler" class="tab-content active">
+                    <button class="submit-btn" id="yeniSeferBtn" style="margin-bottom:20px;"><i class="fas fa-plus"></i> Yeni Sefer Ekle</button>
+                    <div id="seferlerListesi"></div>
+                </div>
+                <div id="tabTalepler" class="tab-content">
+                    <div id="taleplerListesi"></div>
                 </div>
             </div>
+        </div>`;
+    }
+
+    function seferListesiniGoster() {
+        const container = document.getElementById("seferlerListesi");
+        if(!container) return;
+        let html = "";
+        for(let hatAdi in hatlar) {
+            const hat = hatlar[hatAdi];
+            html += `<div class="guzergah-detay" data-hat="${hatAdi}">
+                        <div class="guzergah-baslik">
+                            ${hatAdi} - Kalkış: ${hat.kalkisSaati}
+                            <div>
+                                <button class="sefer-duzenle-btn" onclick="duzenleSefer('${hatAdi.replace(/'/g, "\\'")}')"><i class="fas fa-edit"></i> Düzenle</button>
+                                <button class="sefer-sil-btn" onclick="silSefer('${hatAdi.replace(/'/g, "\\'")}')"><i class="fas fa-trash"></i> Sil</button>
+                            </div>
+                        </div>
+                        <p><strong>Durak Sayısı:</strong> ${hat.duraklar.length}</p>
+                        <p><strong>Güzergah:</strong> ${hat.duraklar.slice(0,5).join(' → ')}...</p>
+                    </div>`;
+        }
+        container.innerHTML = html || "<p>Henüz sefer bulunmuyor.</p>";
+    }
+
+    function talepleriGoster() {
+        const container = document.getElementById("taleplerListesi");
+        if(!container) return;
+        if(destekTalepleri.length === 0) {
+            container.innerHTML = "<p>Henüz destek talebi yok.</p>";
+            return;
+        }
+        let html = "";
+        destekTalepleri.forEach(t => {
+            html += `<div class="destek-talebi">
+                        <strong>${t.tarih}</strong><br>
+                        <strong>${t.isim}</strong> (${t.email}) - ${t.telefon ? t.telefon : "Telefon yok"}<br>
+                        <strong>Konu:</strong> ${t.konu}<br>
+                        <strong>Mesaj:</strong> ${t.mesaj}<br>
+                        <span style="color:${t.durum === 'Beklemede' ? 'orange' : 'green'}">Durum: ${t.durum}</span>
+                    </div>`;
+        });
+        container.innerHTML = html;
+    }
+
+    window.duzenleSefer = function(hatAdi) {
+        const hat = hatlar[hatAdi];
+        if(!hat) return;
+        const modal = document.getElementById("seferModal");
+        document.getElementById("modalBaslik").innerText = `Sefer Düzenle: ${hatAdi}`;
+        document.getElementById("seferAdi").value = hatAdi;
+        document.getElementById("kalkisSaati").value = hat.kalkisSaati;
+        
+        const duraklarDiv = document.getElementById("duraklarListesi");
+        duraklarDiv.innerHTML = "";
+        hat.duraklar.forEach((durak, idx) => {
+            addDurakSatir(durak, hat.saatler[idx]);
+        });
+        
+        modal.style.display = "flex";
+        window.editingHatAdi = hatAdi;
+    };
+
+    window.silSefer = function(hatAdi) {
+        if(confirm(`${hatAdi} seferini silmek istediğinize emin misiniz?`)) {
+            delete hatlar[hatAdi];
+            seferleriKaydet();
+            seferListesiniGoster();
+            // Ana sayfayı yenile
+            if(document.querySelector('nav a.active')?.getAttribute('data-page') === 'admin') {
+                loadPage('admin');
+            }
+        }
+    };
+
+    function addDurakSatir(durak = "", saat = "") {
+        const duraklarDiv = document.getElementById("duraklarListesi");
+        const div = document.createElement("div");
+        div.className = "durak-grup";
+        div.innerHTML = `
+            <input type="text" placeholder="Durak adı" value="${durak}" style="flex:2;">
+            <input type="text" placeholder="Saat (Örn: 12:30)" value="${saat}" style="flex:1;">
+            <button type="button" class="sefer-sil-btn" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
         `;
+        duraklarDiv.appendChild(div);
+    }
+
+    function yeniSeferEkle() {
+        const modal = document.getElementById("seferModal");
+        document.getElementById("modalBaslik").innerText = "Yeni Sefer Ekle";
+        document.getElementById("seferAdi").value = "";
+        document.getElementById("kalkisSaati").value = "";
+        document.getElementById("duraklarListesi").innerHTML = "";
+        addDurakSatir();
+        modal.style.display = "flex";
+        window.editingHatAdi = null;
+    }
+
+    function seferKaydet() {
+        const seferAdi = document.getElementById("seferAdi").value.trim();
+        const kalkisSaati = document.getElementById("kalkisSaati").value.trim();
+        const durakSatirlari = document.querySelectorAll("#duraklarListesi .durak-grup");
+        const duraklar = [];
+        const saatler = [];
+        for(let satir of durakSatirlari) {
+            const durakInput = satir.querySelector("input:first-child");
+            const saatInput = satir.querySelector("input:nth-child(2)");
+            if(durakInput.value.trim() && saatInput.value.trim()) {
+                duraklar.push(durakInput.value.trim());
+                saatler.push(saatInput.value.trim());
+            }
+        }
+        if(!seferAdi || !kalkisSaati || duraklar.length < 2) {
+            alert("Lütfen sefer adı, kalkış saati ve en az 2 durak girin.");
+            return;
+        }
+        const yeniHat = {
+            yon: seferAdi,
+            kalkisSaati: kalkisSaati,
+            duraklar: duraklar,
+            saatler: saatler
+        };
+        if(window.editingHatAdi && hatlar[window.editingHatAdi]) {
+            delete hatlar[window.editingHatAdi];
+        }
+        hatlar[seferAdi] = yeniHat;
+        seferleriKaydet();
+        document.getElementById("seferModal").style.display = "none";
+        seferListesiniGoster();
+        if(document.querySelector('nav a.active')?.getAttribute('data-page') === 'admin') {
+            loadPage('admin');
+        } else {
+            loadPage('home');
+        }
+    }
+
+    function initAdminPanel() {
+        seferListesiniGoster();
+        talepleriGoster();
+        document.getElementById("yeniSeferBtn")?.addEventListener("click", yeniSeferEkle);
+        document.querySelectorAll(".admin-tab").forEach(tab => {
+            tab.addEventListener("click", () => {
+                const target = tab.dataset.tab;
+                document.querySelectorAll(".admin-tab").forEach(t => t.classList.remove("active"));
+                tab.classList.add("active");
+                document.getElementById("tabSeferler").classList.toggle("active", target === "seferler");
+                document.getElementById("tabTalepler").classList.toggle("active", target === "talepler");
+                if(target === "talepler") talepleriGoster();
+                else seferListesiniGoster();
+            });
+        });
     }
 
     function loadPage(page) {
-        if(page === 'home') {
-            app.innerHTML = renderHome();
-            const form = document.getElementById("aramaForm");
-            if(form) {
-                form.addEventListener("submit", (e) => {
+        if(page === 'admin') {
+            if(!adminLoggedIn) {
+                app.innerHTML = renderAdminLogin();
+                const loginBtn = document.getElementById("loginBtn");
+                if(loginBtn) {
+                    loginBtn.onclick = () => {
+                        const pass = document.getElementById("adminPassword").value;
+                        if(pass === ADMIN_PASSWORD) {
+                            adminLoggedIn = true;
+                            loadPage('admin');
+                        } else {
+                            alert("Hatalı şifre!");
+                        }
+                    };
+                }
+            } else {
+                app.innerHTML = renderAdminPanel();
+                initAdminPanel();
+            }
+        } else {
+            if(page === 'home') {
+                app.innerHTML = renderHome();
+                const form = document.getElementById("aramaForm");
+                if(form) form.addEventListener("submit", (e) => {
                     e.preventDefault();
                     const nereden = document.getElementById("nereden").value.trim();
                     const nereye = document.getElementById("nereye").value.trim();
                     const tarih = document.getElementById("tarih").value;
-                    
-                    if(!nereden || !nereye) {
-                        alert("Lütfen nereden ve nereye bilgilerini yazın.");
+                    if(!nereden || !nereye) return alert("Lütfen nereden ve nereye yazın.");
+                    if(nereden === nereye) return alert("Aynı durağı seçtiniz.");
+                    const bulunanlar = seferAraVeGuzergahGoster(nereden, nereye);
+                    const sonucDiv = document.getElementById("sonucAlan");
+                    if(bulunanlar.length === 0) {
+                        sonucDiv.style.display = "block";
+                        sonucDiv.innerHTML = `<p>❌ Sefer bulunamadı.</p>`;
                         return;
                     }
-                    if(nereden === nereye) {
-                        alert("Aynı durağı seçtiniz. Farklı duraklar girin.");
-                        return;
-                    }
-                    if(!tarih) {
-                        alert("Lütfen geçerli bir tarih seçin.");
-                        return;
-                    }
-                    sonucGoster(nereden, nereye, tarih);
+                    const tarihObj = new Date(tarih);
+                    const aylar = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
+                    const formattedDate = `${tarihObj.getDate()} ${aylar[tarihObj.getMonth()]} ${tarihObj.getFullYear()}`;
+                    let html = `<h3>🚍 ${nereden} → ${nereye} - ${formattedDate}</h3>`;
+                    bulunanlar.forEach(sef => {
+                        html += `<div class="sefer-kart">
+                            <div><strong>${sef.hat}</strong> (Kalkış: ${sef.kalkisSaati})</div>
+                            <div>🕒 Binme: ${sef.binisSaati} | 🛑 İnme: ${sef.inisSaati}</div>
+                            <div class="guzergah-ozet"><strong>📌 Güzergah:</strong><br>${sef.rota.map(r => `${r.saat} - ${r.durak}`).join(' → ')}</div>
+                            <div style="margin-top:12px;"><a href="tel:04322190065" style="background:#0a2f44; color:white; padding:8px 20px; border-radius:40px; text-decoration:none;">📞 Rezervasyon için ara</a></div>
+                        </div>`;
+                    });
+                    sonucDiv.style.display = "block";
+                    sonucDiv.innerHTML = html;
                 });
-            }
-        } else if(page === 'seferler') {
-            app.innerHTML = renderSeferler();
-        } else if(page === 'guzergahlar') {
-            app.innerHTML = renderGuzergahlar();
-        } else if(page === 'destek') {
-            app.innerHTML = renderDestek();
-            const destekForm = document.getElementById("destekFormu");
-            if(destekForm) {
-                destekForm.addEventListener("submit", (e) => {
-                    e.preventDefault();
-                    const isim = document.getElementById("isim").value;
-                    const email = document.getElementById("email").value;
-                    const telefon = document.getElementById("telefon").value;
-                    const konu = document.getElementById("konu").value;
-                    const mesaj = document.getElementById("mesaj").value;
-                    
-                    if(!isim || !email || !konu || !mesaj) {
-                        alert("Lütfen tüm zorunlu alanları doldurun.");
-                        return;
-                    }
-                    
-                    const mailBody = `İsim: ${isim}%0ATelefon: ${telefon}%0AKonu: ${konu}%0AMesaj: ${mesaj}`;
-                    window.location.href = `mailto:lidervanseyahat9@gmail.com?subject=Destek Talebi: ${konu}&body=${mailBody}`;
-                    
-                    document.getElementById("formSuccess").style.display = "block";
-                    destekForm.reset();
-                    setTimeout(() => {
-                        document.getElementById("formSuccess").style.display = "none";
-                    }, 5000);
-                });
-            }
-        } else if(page === 'iletisim') {
-            app.innerHTML = renderIletisim();
+            } else if(page === 'seferler') app.innerHTML = renderSeferler();
+            else if(page === 'guzergahlar') app.innerHTML = renderGuzergahlar();
+            else if(page === 'destek') {
+                app.innerHTML = renderDestek();
+                const destekForm = document.getElementById("destekFormu");
+                if(destekForm) {
+                    destekForm.addEventListener("submit", (e) => {
+                        e.preventDefault();
+                        const isim = document.getElementById("isim").value;
+                        const email = document.getElementById("email").value;
+                        const telefon = document.getElementById("telefon").value;
+                        const konu = document.getElementById("konu").value;
+                        const mesaj = document.getElementById("mesaj").value;
+                        if(!isim || !email || !konu || !mesaj) return alert("Tüm zorunlu alanları doldurun.");
+                        destekKaydet(isim, email, telefon, konu, mesaj);
+                        const mailBody = `İsim: ${isim}%0ATelefon: ${telefon}%0AKonu: ${konu}%0AMesaj: ${mesaj}`;
+                        window.location.href = `mailto:lidervanseyahat9@gmail.com?subject=Destek Talebi: ${konu}&body=${mailBody}`;
+                        document.getElementById("formSuccess").style.display = "block";
+                        destekForm.reset();
+                        setTimeout(() => document.getElementById("formSuccess").style.display = "none", 5000);
+                    });
+                }
+            } else if(page === 'iletisim') app.innerHTML = renderIletisim();
+            
+            document.querySelectorAll("nav a").forEach(a => a.classList.remove("active"));
+            const activeLink = document.querySelector(`nav a[data-page="${page}"]`);
+            if(activeLink) activeLink.classList.add("active");
         }
-        
-        document.querySelectorAll("nav a").forEach(a => a.classList.remove("active"));
-        const activeLink = document.querySelector(`nav a[data-page="${page}"]`);
-        if(activeLink) activeLink.classList.add("active");
         window.scrollTo(0,0);
     }
+
+    // Modal HTML'i ekle
+    const modalHtml = `<div id="seferModal" class="modal"><div class="modal-content"><div class="modal-header"><h3 id="modalBaslik">Sefer Düzenle</h3><span class="close-modal">&times;</span></div>
+        <div class="form-group"><label>Sefer Adı (Örn: VAN - İSTANBUL)</label><input type="text" id="seferAdi" placeholder="VAN - İSTANBUL"></div>
+        <div class="form-group"><label>Kalkış Saati</label><input type="text" id="kalkisSaati" placeholder="11:00"></div>
+        <div class="form-group"><label>Duraklar ve Saatleri</label><div id="duraklarListesi"></div><button type="button" class="ekle-durak-btn" onclick="addDurakSatir()">+ Durak Ekle</button></div>
+        <button class="submit-btn" onclick="seferKaydet()">Kaydet</button>
+    </div></div>`;
+    document.body.insertAdjacentHTML("beforeend", modalHtml);
+    document.querySelector(".close-modal")?.addEventListener("click", () => document.getElementById("seferModal").style.display = "none");
+    window.addDurakSatir = addDurakSatir;
+    window.seferKaydet = seferKaydet;
 
     document.querySelectorAll("[data-page]").forEach(el => {
         el.addEventListener("click", (e) => {
@@ -898,7 +989,6 @@
             loadPage(page);
         });
     });
-
     loadPage("home");
 </script>
 </body>
